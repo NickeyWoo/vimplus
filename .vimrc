@@ -123,6 +123,8 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'cohama/agit.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/vim-clang-format'
 Plug 'chxuan/cpp-mode'
@@ -191,6 +193,15 @@ nnoremap <leader>s :source $MYVIMRC<cr>
 nnoremap <leader><leader>i :PlugInstall<cr>
 nnoremap <leader><leader>u :PlugUpdate<cr>
 nnoremap <leader><leader>c :PlugClean<cr>
+
+" Git 插件
+nnoremap <silent> gl :Agit<cr>
+nnoremap <silent> ga :Git add .<cr>
+nnoremap <silent> gs :Git status<cr>
+nnoremap <silent> gc :Git commit<cr>
+nnoremap <silent> gd :Git diff<cr>
+nnoremap <silent> gpush :Git push origin<cr>
+nnoremap <silent> gpull :Git pull origin<cr>
 
 " 分屏窗口移动
 nnoremap ew <c-w><c-w>
