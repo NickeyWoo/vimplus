@@ -260,7 +260,7 @@ nnoremap <silent> <F4> :q<cr>
 nnoremap <silent> <F6> :tabonly<cr>
 
 let g:floaterm_wintype='vsplit'
-let g:floaterm_autoclose=1
+let g:floaterm_autoclose=2
 let g:floaterm_keymap_toggle = '<F5>'
 
 " vim-buffer
