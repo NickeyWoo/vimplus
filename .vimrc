@@ -196,10 +196,10 @@ nnoremap <leader><leader>c :PlugClean<cr>
 
 " Git 插件
 nnoremap <silent> gl :Agit<cr>
-nnoremap <silent> ga :Git add .<cr>
+nnoremap <silent> gaa :Git add .<cr>
 nnoremap <silent> gs :Git status<cr>
 nnoremap <silent> gc :Git commit<cr>
-nnoremap <silent> gd :Git diff<cr>
+nnoremap <silent> gdi :Git diff<cr>
 nnoremap <silent> gpush :Git push origin<cr>
 nnoremap <silent> gpull :Git pull origin<cr>
 
