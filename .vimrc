@@ -123,6 +123,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/vim-clang-format'
 Plug 'chxuan/cpp-mode'
 Plug 'chxuan/vim-edit'
@@ -256,8 +257,11 @@ let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 nnoremap <silent> <F2> :tabprevious<cr>
 nnoremap <silent> <F3> :tabnext<cr>
 nnoremap <silent> <F4> :q<cr>
-nnoremap <silent> <F5> :rightbelow term<cr>
 nnoremap <silent> <F6> :tabonly<cr>
+
+let g:floaterm_wintype='vsplit'
+let g:floaterm_autoclose=1
+let g:floaterm_keymap_toggle = '<F5>'
 
 " vim-buffer
 nnoremap <silent> <c-p> :PreviousBuffer<cr>
