@@ -197,7 +197,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-nnoremap <silent> <F5> :rightbelow term<cr>
 
 " 复制当前选中到系统剪切板
 vmap <leader><leader>y "+y
@@ -253,10 +252,14 @@ inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
+" vim tab
+nnoremap <silent> <F2> :tabprevious<cr>
+nnoremap <silent> <F3> :tabnext<cr>
+nnoremap <silent> <F4> :q<cr>
+nnoremap <silent> <F5> :rightbelow term<cr>
+nnoremap <silent> <F6> :tabonly<cr>
+
 " vim-buffer
-nnoremap <silent> <F2> :PreviousBuffer<cr>
-nnoremap <silent> <F3> :NextBuffer<cr>
-nnoremap <silent> <F4> :CloseBuffer<cr>
 nnoremap <silent> <c-p> :PreviousBuffer<cr>
 nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
