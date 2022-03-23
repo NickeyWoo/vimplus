@@ -197,6 +197,7 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+nnoremap <silent> <F5> :rightbelow term<cr>
 
 " 复制当前选中到系统剪切板
 vmap <leader><leader>y "+y
@@ -306,7 +307,7 @@ nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
 nnoremap <leader>ff :YcmCompleter FixIt<cr>
-nmap <F5> :YcmDiags<cr>
+nmap <F8> :YcmDiags<cr>
 
 " tagbar
 let g:tagbar_width = 30
