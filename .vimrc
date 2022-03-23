@@ -123,6 +123,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'rhysd/vim-clang-format'
 Plug 'chxuan/cpp-mode'
 Plug 'chxuan/vim-edit'
 Plug 'chxuan/change-colorscheme'
@@ -191,6 +192,7 @@ nnoremap <leader><leader>u :PlugUpdate<cr>
 nnoremap <leader><leader>c :PlugClean<cr>
 
 " 分屏窗口移动
+nnoremap ew <c-w><c-w>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
@@ -205,13 +207,18 @@ nnoremap <leader><leader>p "+p
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
+" 代码格式化
+nnoremap <leader>cf :ClangFormat<cr>
+let g:clang_format#auto_format_on_insert_leave=1
+let g:clang_format#code_style="google"
+
 " 主题设置
 set background=dark
 let g:onedark_termcolors=256
-colorscheme onedark
+colorscheme badwolf
 
 " airline
-let g:airline_theme="onedark"
+let g:airline_theme="badwolf"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
@@ -233,10 +240,10 @@ nnoremap <leader><leader>t dd :GenTryCatch<cr>
 xnoremap <leader><leader>t d :GenTryCatch<cr>
 
 " change-colorscheme
-nnoremap <silent> <F9> :PreviousColorScheme<cr>
-inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-nnoremap <silent> <F10> :NextColorScheme<cr>
-inoremap <silent> <F10> <esc> :NextColorScheme<cr>
+" nnoremap <silent> <F9> :PreviousColorScheme<cr>
+" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
+" nnoremap <silent> <F10> :NextColorScheme<cr>
+" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
 nnoremap <silent> <F11> :RandomColorScheme<cr>
 inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
 nnoremap <silent> <F12> :ShowColorScheme<cr>
@@ -246,6 +253,9 @@ inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim-buffer
+nnoremap <silent> <F2> :PreviousBuffer<cr>
+nnoremap <silent> <F3> :NextBuffer<cr>
+nnoremap <silent> <F4> :CloseBuffer<cr>
 nnoremap <silent> <c-p> :PreviousBuffer<cr>
 nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
@@ -258,6 +268,7 @@ nnoremap C :ChangeText<cr>
 nnoremap <leader>r :ReplaceTo<space>
 
 " nerdtree
+nnoremap <silent> <F9> :NERDTreeToggle<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -299,6 +310,7 @@ nmap <F5> :YcmDiags<cr>
 
 " tagbar
 let g:tagbar_width = 30
+nnoremap <silent> <F10> :TagbarToggle<cr>
 nnoremap <silent> <leader>t :TagbarToggle<cr>
 
 " incsearch.vim
