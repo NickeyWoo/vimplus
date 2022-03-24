@@ -259,10 +259,10 @@ inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim tab
-nnoremap <silent> <F2> :tabprevious<cr>
-nnoremap <silent> <F3> :tabnext<cr>
-nnoremap <silent> <F4> :q<cr>
-nnoremap <silent> <F6> :tabonly<cr>
+" nnoremap <silent> <F2> :tabprevious<cr>
+" nnoremap <silent> <F3> :tabnext<cr>
+" nnoremap <silent> <F4> :q<cr>
+" nnoremap <silent> <F6> :tabonly<cr>
 
 " split window
 nnoremap <silent> sg :split<cr>
@@ -283,6 +283,10 @@ nnoremap <silent> <leader>3 :bf<cr>:bn2<cr>
 nnoremap <silent> <leader>4 :bf<cr>:bn3<cr>
 nnoremap <silent> <leader>5 :bf<cr>:bn4<cr>
 nnoremap <silent> <leader>6 :bf<cr>:bn5<cr>
+nnoremap <silent> <F2> :PreviousBuffer<cr>
+nnoremap <silent> <F3> :NextBuffer<cr>
+nnoremap <silent> <F4> :CloseBuffer<cr>
+nnoremap <silent> <F6> :BufOnly<cr>
 nnoremap <silent> <c-p> :PreviousBuffer<cr>
 nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
