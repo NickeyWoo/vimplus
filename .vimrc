@@ -212,7 +212,7 @@ nnoremap <leader><leader>p "+p
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
 " 代码格式化
-nnoremap ef :ClangFormat<cr>
+nnoremap cf :ClangFormat<cr>
 " let g:clang_format#auto_format_on_insert_leave=1
 let g:clang_format#code_style="google"
 
