@@ -314,6 +314,7 @@ let g:ycm_python_sys_path = [
         \   '~/code/',
         \   '~/bigdata/',
         \   '~/project/',
+        \   '~/QQMail/mm3rd/',
         \   '~/QQMail/mm3rd/rapidjson/include/',
         \   '~/QQMail/mm3rd/boost/',
         \   '~/QQMail/mm3rd/curl/include/',
