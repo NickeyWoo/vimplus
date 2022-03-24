@@ -125,7 +125,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cohama/agit.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/vim-clang-format'
 Plug 'chxuan/cpp-mode'
@@ -197,12 +196,6 @@ nnoremap <leader><leader>c :PlugClean<cr>
 
 " Git 插件
 nnoremap <silent> <leader>gl :Agit<cr>
-nnoremap <silent> <leader>gaa :Git add .<cr>
-nnoremap <silent> <leader>gs :Git status<cr>
-nnoremap <silent> <leader>gc :Git commit<cr>
-nnoremap <silent> <leader>gdi :Git diff<cr>
-nnoremap <silent> <leader>gpush :Git push origin<cr>
-nnoremap <silent> <leader>gpull :Git pull origin<cr>
 
 " 分屏窗口移动
 nnoremap ew <c-w><c-w>
