@@ -123,6 +123,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'skywind3000/asyncrun.vim'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
@@ -195,13 +196,13 @@ nnoremap <leader><leader>u :PlugUpdate<cr>
 nnoremap <leader><leader>c :PlugClean<cr>
 
 " Git 插件
-nnoremap <silent> gl :Agit<cr>
-nnoremap <silent> gaa :Git add .<cr>
-nnoremap <silent> gs :Git status<cr>
-nnoremap <silent> gc :Git commit<cr>
-nnoremap <silent> gdi :Git diff<cr>
-nnoremap <silent> gpush :Git push origin<cr>
-nnoremap <silent> gpull :Git pull origin<cr>
+nnoremap <silent> <leader>gl :Agit<cr>
+nnoremap <silent> <leader>gaa :Git add .<cr>
+nnoremap <silent> <leader>gs :Git status<cr>
+nnoremap <silent> <leader>gc :Git commit<cr>
+nnoremap <silent> <leader>gdi :Git diff<cr>
+nnoremap <silent> <leader>gpush :Git push origin<cr>
+nnoremap <silent> <leader>gpull :Git pull origin<cr>
 
 " 分屏窗口移动
 nnoremap ew <c-w><c-w>
@@ -270,20 +271,34 @@ nnoremap <silent> <F3> :tabnext<cr>
 nnoremap <silent> <F4> :q<cr>
 nnoremap <silent> <F6> :tabonly<cr>
 
+" split window
+nnoremap <silent> sg :split<cr>
+nnoremap <silent> sv :vsplit<cr>
+
 let g:floaterm_wintype='vsplit'
 let g:floaterm_autoclose=2
 let g:floaterm_keymap_toggle = '<F5>'
 
+" vim line num
+nnoremap <silent> enn :set nonu<cr>
+nnoremap <silent> en :set nu<cr>
+
 " vim-buffer
+nnoremap <silent> <leader>1 :bf<cr>
+nnoremap <silent> <leader>2 :bf<cr>:bn<cr>
+nnoremap <silent> <leader>3 :bf<cr>:bn2<cr>
+nnoremap <silent> <leader>4 :bf<cr>:bn3<cr>
+nnoremap <silent> <leader>5 :bf<cr>:bn4<cr>
+nnoremap <silent> <leader>6 :bf<cr>:bn5<cr>
 nnoremap <silent> <c-p> :PreviousBuffer<cr>
 nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
 nnoremap <silent> <leader>D :BufOnly<cr>
 
 " vim-edit
-nnoremap Y :CopyText<cr>
-nnoremap D :DeleteText<cr>
-nnoremap C :ChangeText<cr>
+nnoremap YY :CopyText<cr>
+nnoremap DD :DeleteText<cr>
+nnoremap CC :ChangeText<cr>
 nnoremap <leader>r :ReplaceTo<space>
 
 " nerdtree
@@ -296,6 +311,7 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1 
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
+let g:NERDTreeSize=60
 
 " YCM
 " 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
@@ -344,16 +360,16 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
+    \ "Modified" : "✹",
+            \ "Staged" : "✚",
             \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ 'Ignored'   : '☒',
-            \ "Unknown"   : "?"
+            \ "Renamed" : "➜",
+            \ "Unmerged" : "═",
+            \ "Deleted" : "✖",
+            \ "Dirty" : "✗",
+            \ "Clean" : "✔︎",
+            \ 'Ignored' : '☒',
+            \ "Unknown" : "?"
             \ }
 
 " LeaderF
@@ -375,10 +391,10 @@ nnoremap <leader>l :Tab /\|<cr>
 nnoremap <leader>= :Tab /=<cr>
 
 " vim-smooth-scroll
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " gv
 nnoremap <leader>g :GV<cr>
@@ -389,5 +405,4 @@ nnoremap <leader>gg :GV?<cr>
 if filereadable(expand($HOME . '/.vimrc.custom.config'))
     source $HOME/.vimrc.custom.config
 endif
-
 
