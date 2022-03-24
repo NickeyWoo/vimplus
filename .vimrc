@@ -309,6 +309,12 @@ let g:NERDTreeSize=60
 " YCM
 " 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
 " let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
+let g:ycm_python_sys_path = [
+    \   '~/QQMail/',
+    \   '~/code/',
+    \   '~/bigdata/',
+    \   '~/project/'
+    ]
 let g:ycm_confirm_extra_conf = 0 
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✹'
