@@ -330,9 +330,9 @@ let g:ycm_semantic_triggers =  {
         \   'lua' : ['.', ':'],
         \   'erlang' : [':'],
         \ }
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
+nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
 nnoremap <leader>ff :YcmCompleter FixIt<cr>
 nmap <F8> :YcmDiags<cr>
