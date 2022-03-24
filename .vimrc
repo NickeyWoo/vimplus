@@ -213,7 +213,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 代码格式化
 nnoremap <leader>cf :ClangFormat<cr>
-let g:clang_format#auto_format_on_insert_leave=1
+" let g:clang_format#auto_format_on_insert_leave=1
 let g:clang_format#code_style="google"
 
 " 主题设置
