@@ -242,8 +242,8 @@ nnoremap <leader>U :GoToFunImpl<cr>
 nnoremap <silent> <leader>a :Switch<cr>
 nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
-nnoremap <leader><leader>t dd :GenTryCatch<cr>
-xnoremap <leader><leader>t d :GenTryCatch<cr>
+"nnoremap <leader><leader>t dd :GenTryCatch<cr>
+"xnoremap <leader><leader>t d :GenTryCatch<cr>
 
 " change-colorscheme
 " nnoremap <silent> <F9> :PreviousColorScheme<cr>
@@ -293,10 +293,10 @@ nnoremap <silent> <leader>d :CloseBuffer<cr>
 nnoremap <silent> <leader>D :BufOnly<cr>
 
 " vim-edit
-nnoremap YY :CopyText<cr>
-nnoremap DD :DeleteText<cr>
-nnoremap CC :ChangeText<cr>
-nnoremap <leader>r :ReplaceTo<space>
+" nnoremap YY :CopyText<cr>
+" nnoremap DD :DeleteText<cr>
+" nnoremap CC :ChangeText<cr>
+" nnoremap <leader>r :ReplaceTo<space>
 
 " nerdtree
 nnoremap <silent> <F9> :NERDTreeToggle<cr>
