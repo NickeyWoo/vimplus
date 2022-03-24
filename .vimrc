@@ -233,6 +233,8 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
+let g:asyncrun_open=6
+
 " cpp-mode
 nnoremap <leader>y :CopyCode<cr>
 nnoremap <leader>p :PasteCode<cr>
