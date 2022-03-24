@@ -309,7 +309,23 @@ let g:NERDTreeSize=60
 " YCM
 " 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
 " let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
-let g:ycm_python_sys_path = ['~/QQMail/','~/code/','~/bigdata/','~/project/','/usr/include/','/usr/local/include']
+let g:ycm_python_sys_path = [
+        \   '~/QQMail/',
+        \   '~/code/',
+        \   '~/bigdata/',
+        \   '~/project/',
+        \   '~/QQMail/mm3rd/rapidjson/include/',
+        \   '~/QQMail/mm3rd/boost/',
+        \   '~/QQMail/mm3rd/curl/include/',
+        \   '~/QQMail/mm3rd/hadoop/libhdfs/',
+        \   '~/QQMail/mm3rd/jsoncpp/include/',
+        \   '~/QQMail/mm3rd/jsoncpp/include/json/',
+        \   '~/QQMail/mm3rd/l5client/',
+        \   '~/QQMail/mm3rd/mysql/',
+        \   '~/QQMail/mm3rd/protobuf/include/',
+        \   '/usr/include/',
+        \   '/usr/local/include'
+        \ ]
 let g:ycm_confirm_extra_conf = 0 
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✹'
@@ -318,7 +334,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1 
 let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_semantic_triggers =  {
+let g:ycm_semantic_triggers = {
         \   'c' : ['->', '.','re![_a-zA-z0-9]'],
         \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
         \             're!\[.*\]\s'],
@@ -355,7 +371,7 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
-\ "Modified" : "✹",
+        \ "Modified" : "✹",
         \ "Staged" : "✚",
         \ "Untracked" : "✭",
         \ "Renamed" : "➜",
