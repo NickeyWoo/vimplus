@@ -138,7 +138,6 @@ Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
 Plug 'preservim/tagbar'
-" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
@@ -177,6 +176,145 @@ call plug#end()
 " load vim default plugin
 runtime macros/matchit.vim
 
+" coc-nvim 配置
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
 " 注释
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
@@ -195,14 +333,6 @@ let g:translator_history_enable = 'true'
 
 " 编辑vimrc相关配置文件
 nnoremap <leader>e :edit $MYVIMRC<cr>
-nnoremap <leader>vc :edit ~/.vimrc.custom.config<cr>
-nnoremap <leader>vp :edit ~/.vimrc.custom.plugins<cr>
-
-" 查看vimplus的help文件
-nnoremap <leader>h :view +let\ &l:modifiable=0 ~/.vimplus/help.md<cr>
-
-" 打开当前光标所在单词的vim帮助文档
-nnoremap <leader>H :execute ":help " . expand("<cword>")<cr>
 
 " 重新加载vimrc文件
 nnoremap <leader>s :source $MYVIMRC<cr>
@@ -256,31 +386,19 @@ let g:airline_right_alt_sep = ''
 let g:asyncrun_open=6
 
 " cpp-mode
-nnoremap <leader>y :CopyCode<cr>
-nnoremap <leader>p :PasteCode<cr>
-nnoremap <leader>U :GoToFunImpl<cr>
-nnoremap <silent> <leader>a :Switch<cr>
-nnoremap <leader><leader>fp :FormatFunParam<cr>
-nnoremap <leader><leader>if :FormatIf<cr>
+nnoremap <silent> ga :Switch<cr>
 
 " change-colorscheme
-" nnoremap <silent> <F9> :PreviousColorScheme<cr>
-" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-" nnoremap <silent> <F10> :NextColorScheme<cr>
-" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
-nnoremap <silent> <F11> :RandomColorScheme<cr>
-inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
+nnoremap <silent> <F11> :NextColorScheme<cr>
+nnoremap <silent> <S-F11> :PreviousColorScheme<cr>
 nnoremap <silent> <F12> :ShowColorScheme<cr>
-inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim tab
-" nnoremap <silent> <F2> :tabprevious<cr>
-" nnoremap <silent> <F3> :tabnext<cr>
-" nnoremap <silent> <F4> :q<cr>
-" nnoremap <silent> <F6> :tabonly<cr>
+nnoremap <silent> <s-tab> :tabprevious<cr>
+nnoremap <silent> <tab> :tabnext<cr>
 
 " split window
 nnoremap <silent> sg :split<cr>
@@ -299,18 +417,10 @@ nnoremap <silent> ep :set paste<cr>
 nnoremap <silent> enp :set nopaste<cr>
 
 " vim-buffer
-nnoremap <silent> <leader>1 :bf<cr>
-nnoremap <silent> <leader>2 :bf<cr>:bn<cr>
-nnoremap <silent> <leader>3 :bf<cr>:bn2<cr>
-nnoremap <silent> <leader>4 :bf<cr>:bn3<cr>
-nnoremap <silent> <leader>5 :bf<cr>:bn4<cr>
-nnoremap <silent> <leader>6 :bf<cr>:bn5<cr>
 nnoremap <silent> <F2> :PreviousBuffer<cr>
 nnoremap <silent> <F3> :NextBuffer<cr>
 nnoremap <silent> <F4> :CloseBuffer<cr>
 nnoremap <silent> <F6> :BufOnly<cr>
-nnoremap <silent> <c-p> :PreviousBuffer<cr>
-nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
 nnoremap <silent> <leader>D :BufOnly<cr>
 
@@ -325,55 +435,6 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
 let g:NERDTreeSize=60
-
-" YCM
-" 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
-" let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
-" let g:ycm_python_sys_path = [
-"         \   '~/QQMail/',
-"         \   '~/code/',
-"         \   '~/bigdata/',
-"         \   '~/project/',
-"         \   '~/QQMail/mm3rd/',
-"         \   '~/QQMail/mm3rd/rapidjson/include/',
-"         \   '~/QQMail/mm3rd/boost/',
-"         \   '~/QQMail/mm3rd/curl/include/',
-"         \   '~/QQMail/mm3rd/hadoop/libhdfs/',
-"         \   '~/QQMail/mm3rd/jsoncpp/include/',
-"         \   '~/QQMail/mm3rd/jsoncpp/include/json/',
-"         \   '~/QQMail/mm3rd/l5client/',
-"         \   '~/QQMail/mm3rd/mysql/',
-"         \   '~/QQMail/mm3rd/protobuf/include/',
-"         \   '/usr/include/',
-"         \   '/usr/local/include'
-"         \ ]
-" let g:ycm_confirm_extra_conf = 0
-" let g:ycm_error_symbol = '✗'
-" let g:ycm_warning_symbol = '✹'
-" let g:ycm_seed_identifiers_with_syntax = 1
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_complete_in_strings = 1
-" let g:ycm_min_num_identifier_candidate_chars = 2
-" let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_semantic_triggers = {
-"         \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-"         \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"         \             're!\[.*\]\s'],
-"         \   'ocaml' : ['.', '#'],
-"         \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-"         \   'perl' : ['->'],
-"         \   'php' : ['->', '::'],
-"         \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"         \   'ruby' : ['.', '::'],
-"         \   'lua' : ['.', ':'],
-"         \   'erlang' : [':'],
-"         \ }
-" " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
-" nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-" nnoremap <leader>ff :YcmCompleter FixIt<cr>
-" nmap <F8> :YcmDiags<cr>
 
 " tagbar
 let g:tagbar_width = 30
@@ -413,7 +474,7 @@ let g:Lf_WildIgnore = {
 let g:Lf_UseCache = 0
 
 " ack
-nnoremap es :Ack!<space>
+nnoremap eF :Ack!<space>
 
 " echodoc.vim
 let g:echodoc_enable_at_startup = 1
