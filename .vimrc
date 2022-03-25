@@ -179,7 +179,13 @@ runtime macros/matchit.vim
 " coc-nvim 配置
 set updatetime=300
 set shortmess+=c
-set signcolumn=yes
+
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -397,7 +403,7 @@ nnoremap <silent> <F12> :ShowColorScheme<cr>
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim tab
-nnoremap <silent> <s-tab> :tabnext<cr>
+" nnoremap <silent> <s-tab> :tabnext<cr>
 
 " split window
 nnoremap <silent> sg :split<cr>
