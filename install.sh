@@ -234,6 +234,10 @@ function compile_vim_on_debian()
 # 在parrot上源代码安装vim
 function compile_vim_on_parrot()
 {
+    if [ ! -d ~/vim82 ]; then
+        return
+    fi
+
     sudo apt-get install -y libncurses5-dev libncurses5 libgtk2.0-dev libatk1.0-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.1 vim
 
     rm -rf ~/vim82
@@ -256,6 +260,10 @@ function compile_vim_on_parrot()
 # 在centos上源代码安装vim
 function compile_vim_on_centos()
 {
+    if [ ! -d ~/vim82 ]; then
+        return
+    fi
+
     sudo yum install -y ruby ruby-devel lua lua-devel luajit \
         luajit-devel ctags git python python-devel \
         python34 python34-devel tcl-devel \
