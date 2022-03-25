@@ -1,7 +1,7 @@
 {
     "languageserver": {
         "ccls": {
-            "command": "ccls",
+            "command": "'ccls'",
             "filetypes": [
                 "c",
                 "cc",
@@ -11,6 +11,7 @@
                 "objcpp"
             ],
             "rootPatterns": [
+                "BLADE_ROOT",
                 ".ccls",
                 "compile_commands.json",
                 ".git/",
@@ -19,6 +20,9 @@
             "initializationOptions": {
                 "cache": {
                     "directory": "/tmp/ccls"
+                },
+                "client": {
+                    "snippetSupport": true
                 }
             }
         },
