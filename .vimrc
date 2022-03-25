@@ -75,6 +75,7 @@ set ignorecase          " 搜索时大小写不敏感
 " 缓存设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nobackup            " 设置不备份
+set nowritebackup       " 设置不备份
 set noswapfile          " 禁止生成临时文件
 " set autoread            " 文件在vim之外修改过，自动重新读入
 set hidden
@@ -124,18 +125,19 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'neoclide/coc.nvim'
+Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cohama/agit.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/vim-clang-format'
 Plug 'NickeyWoo/cpp-mode'
-Plug 'chxuan/vim-edit'
 Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
 Plug 'preservim/tagbar'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
@@ -173,6 +175,15 @@ call plug#end()
 
 " load vim default plugin
 runtime macros/matchit.vim
+
+" 注释
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+let g:NERDDefaultAlign = 'left'
+
 
 " 编辑vimrc相关配置文件
 nnoremap <leader>e :edit $MYVIMRC<cr>
@@ -277,6 +288,10 @@ let g:floaterm_keymap_toggle = '<F5>'
 nnoremap <silent> enn :set nonu<cr>
 nnoremap <silent> en :set nu<cr>
 
+" vim paste
+nnoremap <silent> ep :set paste<cr>
+nnoremap <silent> enp :set nopaste<cr>
+
 " vim-buffer
 nnoremap <silent> <leader>1 :bf<cr>
 nnoremap <silent> <leader>2 :bf<cr>:bn<cr>
@@ -293,12 +308,6 @@ nnoremap <silent> <c-n> :NextBuffer<cr>
 nnoremap <silent> <leader>d :CloseBuffer<cr>
 nnoremap <silent> <leader>D :BufOnly<cr>
 
-" vim-edit
-" nnoremap YY :CopyText<cr>
-" nnoremap DD :DeleteText<cr>
-" nnoremap CC :ChangeText<cr>
-" nnoremap <leader>r :ReplaceTo<space>
-
 " nerdtree
 nnoremap <silent> <F9> :NERDTreeToggle<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
@@ -314,51 +323,51 @@ let g:NERDTreeSize=60
 " YCM
 " 如果不指定python解释器路径，ycm会自己搜索一个合适的(与编译ycm时使用的python版本匹配)
 " let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
-let g:ycm_python_sys_path = [
-        \   '~/QQMail/',
-        \   '~/code/',
-        \   '~/bigdata/',
-        \   '~/project/',
-        \   '~/QQMail/mm3rd/',
-        \   '~/QQMail/mm3rd/rapidjson/include/',
-        \   '~/QQMail/mm3rd/boost/',
-        \   '~/QQMail/mm3rd/curl/include/',
-        \   '~/QQMail/mm3rd/hadoop/libhdfs/',
-        \   '~/QQMail/mm3rd/jsoncpp/include/',
-        \   '~/QQMail/mm3rd/jsoncpp/include/json/',
-        \   '~/QQMail/mm3rd/l5client/',
-        \   '~/QQMail/mm3rd/mysql/',
-        \   '~/QQMail/mm3rd/protobuf/include/',
-        \   '/usr/include/',
-        \   '/usr/local/include'
-        \ ]
-let g:ycm_confirm_extra_conf = 0 
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '✹'
-let g:ycm_seed_identifiers_with_syntax = 1 
-let g:ycm_complete_in_comments = 1 
-let g:ycm_complete_in_strings = 1 
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_semantic_triggers = {
-        \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-        \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-        \             're!\[.*\]\s'],
-        \   'ocaml' : ['.', '#'],
-        \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-        \   'perl' : ['->'],
-        \   'php' : ['->', '::'],
-        \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-        \   'ruby' : ['.', '::'],
-        \   'lua' : ['.', ':'],
-        \   'erlang' : [':'],
-        \ }
-" 已经使用cpp-mode插件提供的转到函数实现的功能
-nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
-nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
-nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
-nmap <F8> :YcmDiags<cr>
+" let g:ycm_python_sys_path = [
+"         \   '~/QQMail/',
+"         \   '~/code/',
+"         \   '~/bigdata/',
+"         \   '~/project/',
+"         \   '~/QQMail/mm3rd/',
+"         \   '~/QQMail/mm3rd/rapidjson/include/',
+"         \   '~/QQMail/mm3rd/boost/',
+"         \   '~/QQMail/mm3rd/curl/include/',
+"         \   '~/QQMail/mm3rd/hadoop/libhdfs/',
+"         \   '~/QQMail/mm3rd/jsoncpp/include/',
+"         \   '~/QQMail/mm3rd/jsoncpp/include/json/',
+"         \   '~/QQMail/mm3rd/l5client/',
+"         \   '~/QQMail/mm3rd/mysql/',
+"         \   '~/QQMail/mm3rd/protobuf/include/',
+"         \   '/usr/include/',
+"         \   '/usr/local/include'
+"         \ ]
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_error_symbol = '✗'
+" let g:ycm_warning_symbol = '✹'
+" let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_complete_in_strings = 1
+" let g:ycm_min_num_identifier_candidate_chars = 2
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_semantic_triggers = {
+"         \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+"         \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"         \             're!\[.*\]\s'],
+"         \   'ocaml' : ['.', '#'],
+"         \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+"         \   'perl' : ['->'],
+"         \   'php' : ['->', '::'],
+"         \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"         \   'ruby' : ['.', '::'],
+"         \   'lua' : ['.', ':'],
+"         \   'erlang' : [':'],
+"         \ }
+" " 已经使用cpp-mode插件提供的转到函数实现的功能
+" nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
+" nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
+" nnoremap <leader>o :YcmCompleter GoToInclude<cr>
+" nnoremap <leader>ff :YcmCompleter FixIt<cr>
+" nmap <F8> :YcmDiags<cr>
 
 " tagbar
 let g:tagbar_width = 30
@@ -398,7 +407,7 @@ let g:Lf_WildIgnore = {
 let g:Lf_UseCache = 0
 
 " ack
-nnoremap eF :Ack!<space>
+nnoremap es :Ack!<space>
 
 " echodoc.vim
 let g:echodoc_enable_at_startup = 1
