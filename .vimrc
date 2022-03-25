@@ -126,7 +126,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 call plug#begin('~/.vim/plugged')
 
 Plug 'voldikss/vim-translator'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cohama/agit.vim'
