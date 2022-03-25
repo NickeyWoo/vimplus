@@ -429,14 +429,17 @@ function copy_files()
     rm -rf ~/.vimrc
     ln -s ${PWD}/.vimrc ~
 
-    rm -rf ~/.vimrc.custom.plugins
-    cp ${PWD}/.vimrc.custom.plugins ~
+    rm -rf ~/.vimrc/coc-settings.json
+    ln -s ${PWD}/coc-settings.json ~/.vim
 
-    rm -rf ~/.vimrc.custom.config
-    cp ${PWD}/.vimrc.custom.config ~
-
-    rm -rf ~/.ycm_extra_conf.py
-    ln -s ${PWD}/.ycm_extra_conf.py ~
+    # rm -rf ~/.vimrc.custom.plugins
+    # cp ${PWD}/.vimrc.custom.plugins ~
+    #
+    # rm -rf ~/.vimrc.custom.config
+    # cp ${PWD}/.vimrc.custom.config ~
+    #
+    # rm -rf ~/.ycm_extra_conf.py
+    # ln -s ${PWD}/.ycm_extra_conf.py ~
 
     mkdir ~/.vim
     rm -rf ~/.vim/colors

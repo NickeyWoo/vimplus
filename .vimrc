@@ -125,6 +125,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'Yggdroot/indentLine'
 Plug 'voldikss/vim-translator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdcommenter'
@@ -415,6 +416,29 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " ----------------------------------------------------------------------------------------------
 " 变量配置
 " ----------------------------------------------------------------------------------------------
+
+" indentLine
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+" coc-nvim
+let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-sh',
+        \ 'coc-java',
+        \ 'coc-clangd',
+        \ 'coc-cmake',
+        \ 'coc-go',
+        \ 'coc-sql',
+        \ 'coc-vetur',
+        \ 'coc-python',
+        \ 'coc-html',
+        \ 'coc-floaterm',
+        \ 'coc-docker',
+        \ 'coc-explorer',
+        \ 'coc-css',
+        \ 'coc-blade',
+        \]
 
 " 注释
 let g:NERDSpaceDelims = 1
