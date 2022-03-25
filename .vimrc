@@ -176,6 +176,95 @@ call plug#end()
 " load vim default plugin
 runtime macros/matchit.vim
 
+" ----------------------------------------------------------------------------------------------
+" vim 快捷键配置
+" ----------------------------------------------------------------------------------------------
+
+" vim-translator 翻译
+nmap <leader><leader>t <Plug>Translate
+vmap <leader><leader>t <Plug>TranslateV
+nmap <leader><leader>w <Plug>TranslateW
+vmap <leader><leader>w <Plug>TranslateWV
+" 安装、更新、删除插件
+nmap <leader><leader>i :PlugInstall<cr>
+nmap <leader><leader>u :PlugUpdate<cr>
+nmap <leader><leader>c :PlugClean<cr>
+" 复制当前选中到系统剪切板
+vmap <leader><leader>y "+y
+" 将系统剪切板内容粘贴到vim
+nmap <leader><leader>p "+p
+
+" -----------------------------------------------------------
+" vim-buffer
+nmap <leader>d :CloseBuffer<cr>
+nmap <leader>D :BufOnly<cr>
+" 编辑vimrc相关配置文件
+nmap <leader>e :edit $MYVIMRC<cr>
+nmap <leader>s :source $MYVIMRC<cr>
+" Git 插件
+nmap <leader>g :Agit<cr>
+" vim-easymotion
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
+" nerdtree
+nmap <leader>n :NERDTreeToggle<cr>
+" tagbar
+nmap <leader>t :TagbarToggle<cr>
+" tabular
+nmap <leader>l :Tab /\|<cr>
+nmap <leader>= :Tab /=<cr>
+
+" -----------------------------------------------------------
+" 分屏窗口移动
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
+nmap <tab> <c-w><c-w>
+
+" -----------------------------------------------------------
+" 分屏窗口移动
+nmap ew <c-w><c-w>
+" vim line num
+nmap enn :set nonu<cr>
+nmap en :set nu<cr>
+" vim paste mode
+nmap ep :set paste<cr>
+nmap enp :set nopaste<cr>
+" LeaderF
+nmap ef :LeaderfFile .<cr>
+" 代码格式化
+nmap cf :ClangFormat<cr>
+" split window
+nmap sg :split<cr>
+nmap sv :vsplit<cr>
+" ack
+nmap sf :Ack!<space>
+" incsearch.vim
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+
+" -----------------------------------------------------------
+" vim-buffer
+nmap <F2> :PreviousBuffer<cr>
+nmap <F3> :NextBuffer<cr>
+nmap <F4> :CloseBuffer<cr>
+nmap <F6> :BufOnly<cr>
+" nerdtree
+nmap <F9> :NERDTreeToggle<cr>
+" tagbar
+nmap <F10> :TagbarToggle<cr>
+" change-colorscheme
+nmap <F11> :NextColorScheme<cr>
+nmap <S-F11> :PreviousColorScheme<cr>
+nmap <F12> :ShowColorScheme<cr>
+
+" ----------------------------------------------------------------------------------------------
+" COC-nvim 插件配置
+" ----------------------------------------------------------------------------------------------
+
 " coc-nvim 配置
 set updatetime=300
 set shortmess+=c
@@ -214,6 +303,9 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" cpp-mode
+nmap <silent> ga :Switch<cr>
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -320,6 +412,9 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+" ----------------------------------------------------------------------------------------------
+" 变量配置
+" ----------------------------------------------------------------------------------------------
 
 " 注释
 let g:NERDSpaceDelims = 1
@@ -329,46 +424,12 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 let g:NERDDefaultAlign = 'left'
 
-" 翻译
-nmap <silent> <leader><leader>t <Plug>Translate
-vmap <silent> <leader><leader>t <Plug>TranslateV
-nmap <silent> <leader><leader>w <Plug>TranslateW
-vmap <silent> <leader><leader>w <Plug>TranslateWV
-
+" vue-translator 翻译插件
 let g:translator_history_enable = 'true'
-
-" 编辑vimrc相关配置文件
-nnoremap <leader>e :edit $MYVIMRC<cr>
-
-" 重新加载vimrc文件
-nnoremap <leader>s :source $MYVIMRC<cr>
-
-" 安装、更新、删除插件
-nnoremap <leader><leader>i :PlugInstall<cr>
-nnoremap <leader><leader>u :PlugUpdate<cr>
-nnoremap <leader><leader>c :PlugClean<cr>
-
-" Git 插件
-nnoremap <silent> <leader>g :Agit<cr>
-
-" 分屏窗口移动
-nnoremap ew <c-w><c-w>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
-" 复制当前选中到系统剪切板
-vmap <leader><leader>y "+y
-
-" 将系统剪切板内容粘贴到vim
-nnoremap <leader><leader>p "+p
 
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
-" 代码格式化
-nnoremap cf :ClangFormat<cr>
 " let g:clang_format#auto_format_on_insert_leave=1
 let g:clang_format#code_style="google"
 
@@ -391,48 +452,14 @@ let g:airline_right_alt_sep = ''
 
 let g:asyncrun_open=6
 
-" cpp-mode
-nnoremap <silent> ga :Switch<cr>
-
-" change-colorscheme
-nnoremap <silent> <F11> :NextColorScheme<cr>
-nnoremap <silent> <S-F11> :PreviousColorScheme<cr>
-nnoremap <silent> <F12> :ShowColorScheme<cr>
-
 " prepare-code
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
-
-" vim tab
-" nnoremap <silent> <s-tab> :tabnext<cr>
-
-" split window
-nnoremap <silent> sg :split<cr>
-nnoremap <silent> sv :vsplit<cr>
-nnoremap <silent> <tab> <c-w><c-w>
 
 let g:floaterm_wintype='vsplit'
 let g:floaterm_autoclose=2
 let g:floaterm_keymap_toggle = '<F5>'
 
-" vim line num
-nnoremap <silent> enn :set nonu<cr>
-nnoremap <silent> en :set nu<cr>
-
-" vim paste
-nnoremap <silent> ep :set paste<cr>
-nnoremap <silent> enp :set nopaste<cr>
-
-" vim-buffer
-nnoremap <silent> <F2> :PreviousBuffer<cr>
-nnoremap <silent> <F3> :NextBuffer<cr>
-nnoremap <silent> <F4> :CloseBuffer<cr>
-nnoremap <silent> <F6> :BufOnly<cr>
-nnoremap <silent> <leader>d :CloseBuffer<cr>
-nnoremap <silent> <leader>D :BufOnly<cr>
-
 " nerdtree
-nnoremap <silent> <F9> :NERDTreeToggle<cr>
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -444,18 +471,9 @@ let g:NERDTreeSize=60
 
 " tagbar
 let g:tagbar_width = 30
-nnoremap <silent> <F10> :TagbarToggle<cr>
-nnoremap <silent> <leader>t :TagbarToggle<cr>
-
-" incsearch.vim
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 " vim-easymotion
 let g:EasyMotion_smartcase = 1
-map <leader>w <Plug>(easymotion-bd-w)
-nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -472,33 +490,13 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
         \ }
 
 " LeaderF
-nnoremap ef :LeaderfFile .<cr>
 let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
         \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
         \}
 let g:Lf_UseCache = 0
-
-" ack
-nnoremap sf :Ack!<space>
-
 " echodoc.vim
 let g:echodoc_enable_at_startup = 1
-
-" tabular
-nnoremap <leader>l :Tab /\|<cr>
-nnoremap <leader>= :Tab /=<cr>
-
-" vim-smooth-scroll
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-
-" gv
-" nnoremap <leader>g :GV<cr>
-" nnoremap <leader>G :GV!<cr>
-" nnoremap <leader>gg :GV?<cr>
 
 " 加载自定义配置
 if filereadable(expand($HOME . '/.vimrc.custom.config'))
