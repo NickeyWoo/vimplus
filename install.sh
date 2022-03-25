@@ -282,7 +282,7 @@ function install_prepare_software_on_mac()
 {
     xcode-select --install
 
-    brew install vim gcc cmake ctags-exuberant ack
+    brew install vim gcc cmake ctags-exuberant ack llvm cquery clang-format git
 
     macos1014=$(is_macos1014)
     if [ $macos1014 == 1 ]; then
@@ -579,7 +579,7 @@ function install_vimplus_on_mac()
     install_prepare_software_on_mac
     copy_files
     install_fonts_on_mac
-    install_ycm
+    #install_ycm
     install_vim_plugin
     print_logo
 }
@@ -609,7 +609,7 @@ function begin_install_vimplus()
 {
     copy_files
     install_fonts_on_linux
-    install_ycm
+    #install_ycm
     install_vim_plugin
     print_logo
 }
