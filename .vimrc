@@ -480,7 +480,7 @@ let g:Lf_WildIgnore = {
 let g:Lf_UseCache = 0
 
 " ack
-nnoremap eF :Ack!<space>
+nnoremap sf :Ack!<space>
 
 " echodoc.vim
 let g:echodoc_enable_at_startup = 1
