@@ -125,6 +125,7 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'voldikss/vim-translator'
 Plug 'neoclide/coc.nvim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/asyncrun.vim'
@@ -184,6 +185,13 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 let g:NERDDefaultAlign = 'left'
 
+" 翻译
+nmap <silent> <leader><leader>t <Plug>Translate
+vmap <silent> <leader><leader>t <Plug>TranslateV
+nmap <silent> <leader><leader>w <Plug>TranslateW
+vmap <silent> <leader><leader>w <Plug>TranslateWV
+
+let g:translator_history_enable = 'true'
 
 " 编辑vimrc相关配置文件
 nnoremap <leader>e :edit $MYVIMRC<cr>
@@ -254,8 +262,6 @@ nnoremap <leader>U :GoToFunImpl<cr>
 nnoremap <silent> <leader>a :Switch<cr>
 nnoremap <leader><leader>fp :FormatFunParam<cr>
 nnoremap <leader><leader>if :FormatIf<cr>
-"nnoremap <leader><leader>t dd :GenTryCatch<cr>
-"xnoremap <leader><leader>t d :GenTryCatch<cr>
 
 " change-colorscheme
 " nnoremap <silent> <F9> :PreviousColorScheme<cr>
