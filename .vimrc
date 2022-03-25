@@ -397,12 +397,12 @@ nnoremap <silent> <F12> :ShowColorScheme<cr>
 let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
 
 " vim tab
-nnoremap <silent> <s-tab> :tabprevious<cr>
-nnoremap <silent> <tab> :tabnext<cr>
+nnoremap <silent> <s-tab> :tabnext<cr>
 
 " split window
 nnoremap <silent> sg :split<cr>
 nnoremap <silent> sv :vsplit<cr>
+nnoremap <silent> <tab> <c-w><c-w>
 
 let g:floaterm_wintype='vsplit'
 let g:floaterm_autoclose=2
