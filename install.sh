@@ -184,6 +184,10 @@ function is_macos1014()
 # 在ubuntu上源代码安装vim
 function compile_vim_on_ubuntu()
 {
+    if [ ! -d ~/vim82 ]; then
+        return
+    fi
+
     sudo apt-get install -y libncurses5-dev libncurses5 libgnome2-dev libgnomeui-dev \
         libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
         libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.1 lua5.1-dev
@@ -429,9 +433,6 @@ function copy_files()
     rm -rf ~/.vimrc
     ln -s ${PWD}/.vimrc ~
 
-    rm -rf ~/.vimrc/coc-settings.json
-    ln -s ${PWD}/coc-settings.json ~/.vim
-
     # rm -rf ~/.vimrc.custom.plugins
     # cp ${PWD}/.vimrc.custom.plugins ~
     #
@@ -450,6 +451,9 @@ function copy_files()
 
     rm -rf ~/.vim/autoload
     ln -s ${PWD}/autoload ~/.vim
+
+    rm -rf ~/.vimrc/coc-settings.json
+    ln -s ${PWD}/coc-settings.json ~/.vim/coc-settings.json
 }
 
 # 安装mac平台字体
